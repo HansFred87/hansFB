@@ -1,0 +1,118 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container-fluid gedf-wrapper mt-4">
+    <div class="row">
+        <!-- Profile Sidebar -->
+        <div class="col-md-3">
+            <div class="card bg-dark text-light border-light shadow-sm mb-3">
+                <div class="card-body">
+                    <h5 class="text-warning">@SCP_Researcher</h5>
+                    <p class="text-muted mb-1"><strong>Full Name:</strong> Dr. A. Magnusson</p>
+                    <p class="text-muted">Research Specialist in anomalous entities and containment procedures.</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item bg-dark text-light d-flex justify-content-between">
+                        <span>Clearance Level</span>
+                        <span class="badge bg-secondary">Level 3</span>
+                    </li>
+                    <li class="list-group-item bg-dark text-light d-flex justify-content-between">
+                        <span>Research Projects</span>
+                        <span class="badge bg-secondary">7</span>
+                    </li>
+                    <li class="list-group-item bg-dark text-light">Site-42</li>
+                </ul>
+            </div>
+
+            <!-- Photo Reel / Gallery Section -->
+            <div class="card bg-dark text-light border-light shadow-sm mt-3">
+                <div class="card-header text-warning">Anomaly Gallery</div>
+                <div class="card-body">
+                    <div class="photo-gallery">
+                        <img src="path/to/photo1.jpg" class="img-fluid rounded mb-2" alt="Anomaly 173">
+                        <img src="path/to/photo2.jpg" class="img-fluid rounded mb-2" alt="Anomaly 049">
+                        <img src="path/to/photo3.jpg" class="img-fluid rounded mb-2" alt="Anomaly 682">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="col-md-6 gedf-main">
+            <!-- Create Post Section -->
+            <div class="card gedf-card mb-3 bg-secondary text-light">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active text-light" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">Field Observation</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="btn-group">
+                        <a type="submit" class="btn btn-outline-warning" href="{% url 'post-create' %}">Log Anomaly</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Posts Loop -->
+            {% for post in posts %}
+            <div class="card gedf-card mb-3 bg-dark text-light shadow-sm">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <img class="rounded-circle" width="45" src="{{ user.profile.image.url }}" alt="">
+                            <div class="ms-2">
+                                <h5 class="m-0 text-warning">{{ post.author }}</h5>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-link text-light dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right bg-dark text-light border-light" aria-labelledby="gedf-drop1">
+                                <h6 class="dropdown-header text-muted">Options</h6>
+                                <a class="dropdown-item text-warning" href="#">Secure</a>
+                                <a class="dropdown-item text-warning" href="#">Contain</a>
+                                <a class="dropdown-item text-warning" href="#">Report Anomaly</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <small class="text-muted"><i class="fa fa-clock-o"></i> {{ post.date_posted }}</small>
+                    <h5 class="card-title mt-2"><a class="text-warning" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h5>
+                    <p class="card-text">{{ post.content }}</p>
+                </div>
+                <div class="card-footer d-flex justify-content-around">
+                    <a href="#" class="card-link text-warning"><i class="fa fa-thumbs-up"></i> Like</a>
+                    <a href="#" class="card-link text-warning"><i class="fa fa-comment"></i> Comment</a>
+                    <a href="#" class="card-link text-warning"><i class="fa fa-share"></i> Share</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Sidebar Widgets -->
+        <div class="col-md-3">
+            <div class="card gedf-card mb-3 bg-dark text-light border-light">
+                <div class="card-body">
+                    <h5 class="card-title text-warning">SCP Insights</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Containment Updates</h6>
+                    <p class="card-text">The latest protocols for managing high-risk anomalies.</p>
+                    <a href="#" class="card-link text-warning">Explore</a>
+                    <a href="#" class="card-link text-warning">Containment Logs</a>
+                </div>
+            </div>
+            <div class="card gedf-card mt-3 bg-dark text-light border-light">
+                <div class="card-body">
+                    <h5 class="card-title text-warning">Research Highlights</h5>
+                    <p class="card-text">In-depth analyses on recently secured anomalies.</p>
+                    <a href="#" class="card-link text-warning">Read More</a>
+                    <a href="#" class="card-link text-warning">Research Notes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
